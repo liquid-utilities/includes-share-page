@@ -15,4 +15,4 @@ This post is a _live_ example of using FrontMatter to define social media share 
 
 
 
-[post__frontmatter_share__source]: https://github.com/liquid-utilities/includes-share/blob/gh-pages/_posts/2020-07-19-frontmatter-share.md
+[post__frontmatter_share__source]: https://github.com/liquid-utilities/includes-share-page/blob/gh-pages/_posts/2020-07-19-frontmatter-share.md
