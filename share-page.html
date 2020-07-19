@@ -1,0 +1,130 @@
+{% capture workspace__share_page %}
+{% comment %}
+---
+version: 0.0.1
+license: AGPL-3.0
+author: S0AndS0
+---
+{% endcomment %}
+
+
+{% assign share__escaped__page_url = page.url | absolute_url | url_param_escape %}
+{% assign share__escaped__page_title = page.title | url_param_escape %}
+{% assign share__element_class_block = page.share.element_class_block | default: 'social-share' %}
+{% assign share__text = page.share.text | default: page.description | default: page.excerpt | default: nil %}
+
+
+{% assign share__figcaption = page.share.figcaption %}
+{% unless share__figcaption == false or share__figcaption %}
+  {% assign share__figcaption = site.share.figcaption %}
+{% endunless %}
+
+
+{% assign share__disable_text = page.share.disable_text | default: site.share.disable_text | default: false %}
+{% assign share__disable_facebook = page.share.disable_facebook | default: site.share.disable_facebook %}
+{% assign share__disable_linkedin = page.share.disable_linkedin | default: site.share.disable_linkedin %}
+{% assign share__disable_reddit = page.share.disable_reddit | default: site.share.disable_reddit %}
+{% assign share__disable_twitter = page.share.disable_twitter | default: site.share.disable_twitter %}
+
+
+{% assign share__tags = page.tags %}
+
+{% unless share__tags == false or share__tags %}
+  {% assign share__tags = page.categories %}
+{% endunless %}
+
+{% unless share__tags == false or share__tags %}
+  {% assign share__tags = page.category | split: ' ' %}
+{% endunless %}
+
+{% if share__tags %}
+  {% assign share__escaped__hash_tags = nil %}
+  {% for tag in share__tags %}
+    {% if share__escaped__hash_tags %}
+      {% capture share__escaped__hash_tags %}{{ share__escaped__hash_tags }},{{ tag | url_param_escape }}{% endcapture %}
+    {% else %}
+      {% capture share__escaped__hash_tags %}{{ tag | url_param_escape }}{% endcapture %}
+    {% endif %}
+  {% endfor %}
+{% endif %}
+
+
+<figure class="{{ share__element_class_block }}__container">
+  {% unless share__figcaption == false %}
+    {% if figcaption %}
+      <figcaption>{{ share__figcaption }}</figcaption>
+    {% else %}
+      <figcaption>Share via:</figcaption>
+    {% endif %}
+  {% endunless %}
+
+  <ul class="{{ share__element_class_block }}__list">
+    {% comment %}
+      Parameters `u`
+    {% endcomment %}
+    {% unless share__disable_facebook %}
+      <li class="{{ share__element_class_block }}__item">
+        <a href="https://www.facebook.com/sharer.php?u={{ share__escaped__page_url }}"
+           class="{{ share__element_class_block }}__link facebook-share fa fa-facebook"
+           data-name="Facebook">
+          {% unless share__disable_text %}Facebook{% endunless %}
+        </a>
+      </li>
+    {% endunless %}
+
+    {% comment %}
+      Parameters `url`
+    {% endcomment %}
+    {% unless share__disable_linkedin %}
+      <li class="{{ share__element_class_block }}__item">
+        <a href="https://www.linkedin.com/sharing/share-offsite?url={{ share__escaped__page_url }}"
+           class="{{ share__element_class_block }}__link linkedin-share fa fa-linkedin"
+           data-name="LinkedIn">
+          {% unless share__disable_text %}LinkedIn{% endunless %}
+        </a>
+      </li>
+    {% endunless %}
+
+    {% comment %}
+      Parameters `url` `title`
+    {% endcomment %}
+    {% unless share__disable_reddit %}
+      <li class="{{ share__element_class_block }}__item">
+        <a href="https://reddit.com/submit?url={{ share__escaped__page_url }}&title={{ share__escaped__page_title }}"
+           class="{{ share__element_class_block }}__link reddit-share fa fa-redit"
+           data-name="Reddit">
+          {% unless share__disable_text %}Reddit{% endunless %}
+        </a>
+      </li>
+    {% endunless %}
+
+    {% comment %}
+      Parameters `url` `text` `via` `hashtags`
+      Note `via` == User ID, which is not applicable here
+    {% endcomment %}
+    {% unless share__disable_twitter %}
+      {% if share__text %}
+        {% assign twitter_text = share__text | truncate: 140 | url_encode %}
+      {% endif %}
+      {% assign twitter_query_string = 'url=' | append: share__escaped__page_url %}
+
+      {% if share__escaped__hash_tags %}
+        {% assign twitter_query_string = twitter_query_string | append: '&hashtags=' | append: share__escaped__hash_tags %}
+      {% endif %}
+
+      {% if twitter_text %}
+        {% assign twitter_query_string = twitter_query_string | append: '&text=' | append: twitter_text %}
+      {% endif %}
+
+      <li class="{{ share__element_class_block }}__item">
+        <a href="https://www.twitter.com/intent/share?{{ twitter_query_string }}"
+           class="{{ share__element_class_block }}__link twitter-share fa fa-twitter"
+           data-name="Twitter">
+          {% unless share__disable_text %}Twitter{% endunless %}
+        </a>
+      </li>
+    {% endunless %}
+  </ul>
+</figure>
+
+{% endcapture %}{%- if workspace__share_page -%}{{ workspace__share_page | strip | strip_newlines }}{%- endif -%}{% assign workspace__share_page = nil %}
