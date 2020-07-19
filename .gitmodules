@@ -2,3 +2,7 @@
 	path = _includes/modules/includes-translate
 	url = https://github.com/liquid-utilities/includes-translate.git
 	branch = master
+[submodule "includes-share-page"]
+	path = _includes/modules/includes-share
+	url = https://github.com/liquid-utilities/includes-share-page.git
+	branch = main
