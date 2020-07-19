@@ -305,7 +305,7 @@ share:
     </li>
 
     <li class="social-share__item">
-      <a href="https://www.twitter.com/intent/share?url=https%3A%2F%2Fauthor.github.io%2Frepo-name%2Fprogramming%2Fwebdev%2F2020%2F07%2F06%2Fexample-post.html&hashtags=programming,webdev&text=Customized%20text%20for%20when%20someone%20shares%20a%20link%20to%20this%20post"
+      <a href="https://www.twitter.com/intent/tweet?url=https%3A%2F%2Fauthor.github.io%2Frepo-name%2Fprogramming%2Fwebdev%2F2020%2F07%2F06%2Fexample-post.html&hashtags=programming,webdev&text=Customized%20text%20for%20when%20someone%20shares%20a%20link%20to%20this%20post"
          class="social-share__link twitter-share fa fa-twitter"
          data-name="Twitter">
         Twitter
